@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  respond_to :html, :js
+
   # GET /tasks
   # GET /tasks.json
   def index
@@ -15,10 +17,10 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @task }
-    end
+#    respond_to do |format|
+#      format.html # show.html.erb
+#      format.json { render json: @task }
+#    end
   end
 
   # GET /tasks/new

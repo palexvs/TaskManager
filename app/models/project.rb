@@ -13,6 +13,9 @@
 class Project < ActiveRecord::Base
   belongs_to :user
   attr_accessible :description, :name
+  has_many :task  
+
+  scope :with_task, includes(:task)
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
