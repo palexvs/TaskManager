@@ -1,13 +1,15 @@
 class ProjectsController < ApplicationController
+  respond_to :html, :js
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.with_task.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+#    respond_to do |format|
+#      format.html # index.html.erb
+#      format.json { render json: @projects }
+#      format.js
+#    end
   end
 
   # GET /projects/1

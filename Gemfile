@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'simple_form'
 
 gem 'annotate', '~> 2.4.1.beta', group: :development
 

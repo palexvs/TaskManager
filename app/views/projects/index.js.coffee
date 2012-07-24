@@ -1,0 +1,1 @@
+$("<%= escape_javascript(render 'projects/projects')%>").appendTo('#container').hide().fadeIn()
