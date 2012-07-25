@@ -2,9 +2,9 @@ TaskManager::Application.routes.draw do
 
   root to: 'projects#index'
 
-  resources :tasks
-
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
   resources :users
 

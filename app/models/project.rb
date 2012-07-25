@@ -13,7 +13,7 @@
 class Project < ActiveRecord::Base
   belongs_to :user
   attr_accessible :description, :name
-  has_many :task  
+  has_many :task, :dependent => :destroy
 
   scope :with_task, includes(:task)
 

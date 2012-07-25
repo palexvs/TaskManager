@@ -16,15 +16,14 @@
 class Task < ActiveRecord::Base
   belongs_to :status
   belongs_to :project
-  attr_accessible :deadline, :description, :name, :priority
+  attr_accessible :deadline, :description, :name, :priority, :status_id
 
   delegate :name, :to => :status, :prefix => true
   delegate :name, :to => :project, :prefix => true
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
-  validates :priority, presence: true, numericality: { only_integer: true, less_than: 100 }
-  validates :deadline, presence: true
+  validates :priority, numericality: { only_integer: true, less_than: 100, greater_than_or_equal_to: 0 }
 
   validate :deadline_cannot_be_in_the_past
 

@@ -1,1 +1,1 @@
-$("<%= escape_javascript(render 'projects/projects')%>").appendTo('#container').hide().fadeIn()
+$('#main').html("<%= escape_javascript(render 'projects/projects')%>").hide().fadeIn()

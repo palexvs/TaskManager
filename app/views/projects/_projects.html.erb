@@ -1,32 +1,33 @@
-<h1>Listing projects</h1>
-
 <% @projects.each do |project| %>
 <table class="table table-striped table-bordered table-condensed">
   <tr>
     <th><%= project.name %></th>
-    <th>
+    <th class="control">
       <ul class="nav nav-pills">
-        <li><%= link_to project, remote: true do %><i class="icon-chevron-right"></i><% end %></li>
         <li><%= link_to edit_project_path(project), remote: true do %><i class="icon-edit"></i><% end %></li>
-        <li><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %><i class="icon-remove"></i><% end %></li>
+        <li><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-remove"></i><% end %></li>
       </ul>
     </th>
+  </tr>
+  <tr class="add-new">
+    <td colspan="2">
+      <%= simple_form_for([project, @task], remote: true, :html => { :class => "form-vertical"}) do |f| %>
+      <%= f.input :name, :label => false %>
+      <%= f.submit "Add Task",:class=>"btn btn-primary" %>
+      <% end %>
+    </td>
   </tr>
   <% project.task.each do |task| %>
     <tr>
       <td><%= task.name %></td>
-      <td>
+      <td class="control">
       <ul class="nav nav-pills">
-        <li><%= link_to task, remote: true do %><i class="icon-chevron-right"></i><% end %></li>
-        <li><%= link_to edit_task_path(task), remote: true do %><i class="icon-edit"></i><% end %></li>
-        <li><%= link_to task, method: :delete, data: { confirm: 'Are you sure?' } do %><i class="icon-remove"></i><% end %></li>
+        <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>
+        <li><%= link_to edit_project_task_path(project, task), remote: true do %><i class="icon-edit"></i><% end %></li>
+        <li><%= link_to [project, task], method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-remove"></i><% end %></li>
       </ul>
       </td>
     </tr>  
   <% end %>
 </table>
 <% end %>
-
-<br />
-
-<%= link_to 'New Project', new_project_path %>
