@@ -8,10 +8,18 @@
 </head>
 <body>
   <div id="container" class="container">
+    <div class="row" id="alert-area"></div>
 
-  <%= yield %>
+    <div class="row" id="title"><h1>SIMPLE TODO LISTS</h1></div>
+
+    <div class="row" id="main">
+    </div>
+    <dib class="row">
+      <%= link_to 'Add TODO List', new_project_path, :class=>"btn btn-primary central", remote: true %>
+    </div>
+
+    <div class="row" id="modal"></div>
 
   </div>
-  <div id="container-modal"></div>
 </body>
 </html>

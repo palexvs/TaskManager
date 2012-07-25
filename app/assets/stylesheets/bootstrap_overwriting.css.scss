@@ -9,3 +9,59 @@
     color: white;
   }
 }
+
+.table-striped tbody tr {
+  &:nth-child(odd) td {
+    background-color: rgba(249, 249, 249, 0.6);
+  }
+  td {
+    background-color: rgba(249, 249, 249, 0.7);
+  }
+  &:hover td {
+    background-color: #fcfed5;
+  }
+  td.control, th.control {
+    width: 120px;
+  }
+}
+
+.add-new {
+  form {
+    margin: 0px;
+  }
+  div.input {
+    float: left;
+    input {
+      margin: 0px;
+    }
+  }
+}
+
+#title {
+  text-align: center;
+  margin: 10px 0;
+}
+
+#alert-area {
+}
+
+html, body {
+  height: 100%;
+}
+
+body { 
+  background-image: linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
+  background-image: -o-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
+  background-image: -moz-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
+  background-image: -webkit-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
+  background-image: -ms-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.22, rgb(198,117,12)),
+    color-stop(0.63, rgb(200,196,162)),
+    color-stop(0.8, rgb(206,204,180))
+  );
+}
