@@ -7,18 +7,17 @@
 #  description :string(255)
 #  priority    :integer
 #  deadline    :datetime
-#  status_id   :integer
 #  project_id  :integer
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
+#  done        :boolean         default(FALSE)
 #
 
 class Task < ActiveRecord::Base
   belongs_to :status
   belongs_to :project
-  attr_accessible :deadline, :description, :name, :priority, :status_id
+  attr_accessible :deadline, :description, :name, :priority, :done
 
-  delegate :name, :to => :status, :prefix => true
   delegate :name, :to => :project, :prefix => true
 
   validates :name, presence: true, length: { maximum: 50 }

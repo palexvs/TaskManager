@@ -7,10 +7,10 @@
 #  description :string(255)
 #  priority    :integer
 #  deadline    :datetime
-#  status_id   :integer
 #  project_id  :integer
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
+#  done        :boolean         default(FALSE)
 #
 
 require 'test_helper'
