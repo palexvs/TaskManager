@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  include SessionsHelper
+
   respond_to :js
 
   before_filter :get_project
@@ -24,16 +26,20 @@ class TasksController < ApplicationController
     @task.destroy
   end
 
-
-
   private
 
   def get_task
     @task = @project.task.find(params[:id])
+    if @task.nil?     
+      redirect_to projects_path, alert: "Can't get task"
+    end
   end
 
   def get_project
-    @project = Project.find_by_id(params[:project_id])
+    @project = current_user.project.find_by_id(params[:project_id])
+    if @project.nil?     
+      redirect_to projects_path, alert: "Can't get project"
+    end    
   end
 
 end

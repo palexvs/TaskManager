@@ -1,11 +1,16 @@
 @import "bootstrap";
+$blue-header: #4572A8;
+
+.navbar .container{
+  width: 940px;
+}
 
 .table {
   .nav {
     margin: 0;
   }
   th {
-    background-color: #4572a8 !important;
+    background-color: $blue-header !important;
     color: white;
   }
 }
@@ -23,6 +28,13 @@
   td.control, th.control {
     width: 120px;
   }
+  &.status-done td {
+    text-decoration: line-through;
+  }
+}
+
+.modal-header {
+  background-color: $blue-header;
 }
 
 .add-new {
@@ -43,6 +55,14 @@
 }
 
 #alert-area {
+}
+
+a.no-visited-hightlite:visited {
+  color: #ffffff;
+}
+
+.text-center {
+  text-align: center;
 }
 
 html, body {

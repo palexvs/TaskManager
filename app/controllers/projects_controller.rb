@@ -1,12 +1,14 @@
 class ProjectsController < ApplicationController
+  include SessionsHelper
+
+  before_filter :loged_in
   before_filter :get_project, only: [:show, :edit, :update, :destroy]
 
   respond_to :js
 
   def index
-    @projects = Project.with_task.all
+    @projects = current_user.project.with_task.all
     @task = Task.new
-    respond_to :html, :js
   end
 
   def show
@@ -20,7 +22,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(params[:project])
+    @project = current_user.project.build(params[:project])
     @project.save
   end
 
@@ -34,8 +36,15 @@ class ProjectsController < ApplicationController
 
   private
 
+  def loged_in
+      redirect_to login_path if !signed_in?
+  end
+
   def get_project
-    @project = Project.find(params[:id])
+    @project = current_user.project.find_by_id(params[:id])
+    if @project.nil?     
+      redirect_to projects_path, alert: "Can't get project"
+    end
   end
 
 end

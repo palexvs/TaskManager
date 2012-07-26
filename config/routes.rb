@@ -1,10 +1,15 @@
 TaskManager::Application.routes.draw do
 
-  root to: 'projects#index'
+  root to: 'sessions#home'
 
   resources :projects do
     resources :tasks
   end
+
+  resources :sessions
+  match '/logout' => 'sessions#destroy', via: :delete
+  match '/login' => 'sessions#new'
+  match '/projects' => 'projects#index', via: [:delete, :put, :get]
 
   resources :users
 
