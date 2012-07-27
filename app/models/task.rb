@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
 
   delegate :name, :to => :project, :prefix => true
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 125 }
   validates :description, length: { maximum: 255 }
   validates :priority, numericality: { only_integer: true, less_than: 100, greater_than_or_equal_to: 0 }
 

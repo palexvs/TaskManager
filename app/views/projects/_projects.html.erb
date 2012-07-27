@@ -3,7 +3,7 @@
   <tr>
     <th><%= project.name %></th>
     <th class="control">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills hide">
         <li><%= link_to edit_project_path(project), remote: true do %><i class="icon-pencil"></i><% end %></li>
         <li><%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-trash"></i><% end %></li>
       </ul>
@@ -11,8 +11,8 @@
   </tr>
   <tr class="add-new">
     <td colspan="2">
-      <%= simple_form_for([project, @task], remote: true, :html => { :class => "form-vertical"}) do |f| %>
-      <%= f.input :name, :label => false %>
+      <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical"}) do |f| %>
+      <%= f.input :name, :label => false, id: project.id, :input_html => {  size: "125" } %>
       <%= f.submit "Add Task",:class=>"btn btn-primary" %>
       <% end %>
     </td>
@@ -21,7 +21,7 @@
     <tr class="<%= "status-done" if task.done %>">
       <td><%= task.name %></td>
       <td class="control">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills hide">
         <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>
         <li><%= link_to edit_project_task_path(project, task), remote: true do %><i class="icon-pencil"></i><% end %></li>
         <li><%= link_to [project, task], method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-trash"></i><% end %></li>
