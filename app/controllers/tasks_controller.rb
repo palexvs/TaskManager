@@ -30,16 +30,16 @@ class TasksController < ApplicationController
 
   def get_task
     @task = @project.task.find(params[:id])
-    if @task.nil?     
+    if @task.nil?
       redirect_to projects_path, alert: "Can't get task"
     end
   end
 
   def get_project
     @project = current_user.project.find_by_id(params[:project_id])
-    if @project.nil?     
+    if @project.nil?
       redirect_to projects_path, alert: "Can't get project"
-    end    
+    end
   end
 
 end
