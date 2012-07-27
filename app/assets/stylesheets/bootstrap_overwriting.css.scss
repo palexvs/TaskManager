@@ -16,14 +16,26 @@ $blue-header: #4572A8;
 }
 
 .table-striped tbody tr {
+  &.add-new{
+    .btn {
+      width: 115px;
+      float: right;
+    }
+
+  }
   &:nth-child(odd) td {
     background-color: rgba(249, 249, 249, 0.6);
   }
   td {
     background-color: rgba(249, 249, 249, 0.7);
   }
-  &:hover td {
-    background-color: #fcfed5;
+  &:hover {
+    td {
+      background-color: #fcfed5;
+    }
+    .hide {
+      display: block !important;
+    }
   }
   td.control, th.control {
     width: 120px;
