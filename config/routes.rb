@@ -11,7 +11,7 @@ TaskManager::Application.routes.draw do
   match '/login' => 'sessions#new'
   match '/projects' => 'projects#index', via: [:delete, :put, :get]
 
-  resources :users
+  resources :users, only: [:create]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
