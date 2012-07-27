@@ -12,7 +12,7 @@
   <tr class="add-new">
     <td colspan="2">
       <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical"}) do |f| %>
-      <%= f.input :name, :label => false, id: project.id, :input_html => {  size: "125" } %>
+      <%= f.input :name, :label => false, :input_html => {class: "task_name", id: "task_name_p#{project.id}",  size: "125" } %>
       <%= f.submit "Add Task",:class=>"btn btn-primary" %>
       <% end %>
     </td>
