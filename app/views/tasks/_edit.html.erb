@@ -9,7 +9,7 @@
     <div id="alert-area-modal"></div>
 
     <%= f.input :name %>
-    <%= f.input :deadline, :order => [:day, :month, :year] %>
+    <%= f.input :deadline, as: "string" %>
     <%= f.input :priority %>
     <%= f.input :done %>
 
