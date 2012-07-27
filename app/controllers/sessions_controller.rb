@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController  
+class SessionsController < ApplicationController
   protect_from_forgery
   include SessionsHelper
 

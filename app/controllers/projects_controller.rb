@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
 
   def get_project
     @project = current_user.project.find_by_id(params[:id])
-    if @project.nil?     
+    if @project.nil?
       redirect_to projects_path, alert: "Can't get project"
     end
   end

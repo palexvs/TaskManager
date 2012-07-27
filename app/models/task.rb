@@ -30,5 +30,5 @@ class Task < ActiveRecord::Base
     if !deadline.blank? and deadline < Date.today
       errors.add(:deadline, "can't be in the past")
     end
-  end  
+  end
 end
