@@ -6,6 +6,7 @@ TaskManager::Application.routes.draw do
     resources :tasks, only: [:show, :create, :edit, :update, :destroy]
   end
   match '/projects' => 'projects#index', via: [:delete, :put, :get]
+  match '/set_task_status' => 'tasks#set_status', via: :put
 
   resources :sessions, only: [:new, :create, :destroy, :index]
   match '/logout' => 'sessions#destroy', via: :delete

@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   respond_to :js
 
   before_filter :get_project
-  before_filter :get_task, only: [:show, :edit, :update, :destroy]
+  before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status]
 
   def show
   end
@@ -24,6 +24,16 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
+  end
+
+  def set_status
+    respond_to do |format|
+      if @task.update_attributes(done: params[:task_status])
+        format.json { head :no_content }
+      else
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

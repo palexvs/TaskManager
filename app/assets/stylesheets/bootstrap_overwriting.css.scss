@@ -72,6 +72,17 @@ $blue-header: #4572A8;
   td.control, th.control {
     width: 120px;
   }
+  td.set-done {
+    width: 30px;
+    input[type="checkbox"] {
+      margin: 8px 0 0 7px;
+    }
+  }
+  td.name {
+    p {
+      margin-top: 6px
+    }
+  }
   &.status-done td {
     text-decoration: line-through;
   }

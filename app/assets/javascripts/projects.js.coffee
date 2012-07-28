@@ -16,4 +16,14 @@ LogIn()
     url: '/projects/'
     dataType: 'script'
 
-#@LoadProjectList()
+
+@SetTaskStatus = (ch)->
+  n = ch.parents("tr").attr("id").split("-")
+  params = {project_id: n[0], id: n[1], task_status: ch.is(":checked")}
+  request = $.ajax
+    type: 'put'
+    url: '/set_task_status'
+    dataType: 'json'
+    data: params
+  request.done ->
+    LoadProjectList()
