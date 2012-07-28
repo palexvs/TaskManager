@@ -1,7 +1,7 @@
 <% @projects.each do |project| %>
 <table class="table table-striped table-bordered table-condensed">
   <tr>
-    <th><%= project.name %></th>
+    <th colspan="2" ><%= project.name %></th>
     <th class="control">
       <ul class="nav nav-pills hide">
         <li><%= link_to edit_project_path(project), remote: true do %><i class="icon-pencil"></i><% end %></li>
@@ -10,22 +10,23 @@
     </th>
   </tr>
   <tr class="add-new">
-    <td colspan="2">
-      <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical"}) do |f| %>
+    <td colspan="3">
+      <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical form-inline"}) do |f| %>
       <%= f.input :name, :label => false, :input_html => {class: "task_name", id: "task_name_p#{project.id}",  size: "125" } %>
       <%= f.submit "Add Task",:class=>"btn btn-primary" %>
       <% end %>
     </td>
   </tr>
   <% project.task.each do |task| %>
-    <tr class="<%= "status-done" if task.done %>">
-      <td><%= task.name %></td>
+    <tr class="<%= "status-done" if task.done %>" id="<%= "#{project.id}-#{task.id}" %>">
+      <td class="set-done"><%= check_box 'task', 'done', :checked => task.done, id: "task-status-#{task.id}", class: "task-status-chekbox"  %></td>
+      <td class="name"><p><%= task.name %><p></td>
       <td class="control">
-      <ul class="nav nav-pills hide">
-        <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>
-        <li><%= link_to edit_project_task_path(project, task), remote: true do %><i class="icon-pencil"></i><% end %></li>
-        <li><%= link_to [project, task], method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-trash"></i><% end %></li>
-      </ul>
+        <ul class="nav nav-pills hide">
+          <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>
+          <li><%= link_to [:edit, project, task], remote: true do %><i class="icon-pencil"></i><% end %></li>
+          <li><%= link_to [project, task], method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-trash"></i><% end %></li>
+        </ul>
       </td>
     </tr>
   <% end %>
