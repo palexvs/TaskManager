@@ -12,8 +12,11 @@
 
   </div>
   <div class="modal-footer">
-    <%= f.submit "Login",:class=>"btn btn-primary", :onclick=> '$("form#new_user").attr("action", "/sessions")' %>
-    <%= f.submit "Register",:class=>"btn btn-success pull-left", :onclick=> '$("form#new_user").attr("action", "/users")' %>
+    <div class="button-container">
+      <%= f.submit "Login",:class=>"btn btn-primary", :onclick=> '$("form#new_user").attr("action", "/sessions")' %>
+      <span>OR</span>
+      <%= f.submit "Register",:class=>"btn btn-success pull-left", :onclick=> '$("form#new_user").attr("action", "/users")' %>
+    </div>
   </div>
 
 <% end %>
