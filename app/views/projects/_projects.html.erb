@@ -1,7 +1,7 @@
 <% @projects.each do |project| %>
 <table class="table table-striped table-bordered table-condensed">
   <tr>
-    <th colspan="2" ><%= project.name %></th>
+    <th colspan="2"><p><%= project.name %></p></th>
     <th class="control">
       <ul class="nav nav-pills hide">
         <li><%= link_to edit_project_path(project), remote: true do %><i class="icon-pencil"></i><% end %></li>
@@ -20,7 +20,7 @@
   <% project.task.each do |task| %>
     <tr class="<%= "status-done" if task.done %>" id="<%= "#{project.id}-#{task.id}" %>">
       <td class="set-done"><%= check_box 'task', 'done', :checked => task.done, id: "task-status-#{task.id}", class: "task-status-chekbox"  %></td>
-      <td class="name"><p><%= task.name %><p></td>
+      <td class="name"><p><%= task.name %></p></td>
       <td class="control">
         <ul class="nav nav-pills hide">
           <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>

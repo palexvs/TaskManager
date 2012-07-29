@@ -37,9 +37,6 @@ $blue-header: #4572A8;
     background-color: $blue-header !important;
     color: white;
   }
-  th, td {
-    height: 34px;
-  }
   &.add-new {
     .btn {
       width: 115px;
@@ -67,8 +64,15 @@ $blue-header: #4572A8;
       display: block !important;
     }
   }
-  td.control, th.control {
+  td.control {
     width: 120px;
+    padding-top: 2px;
+    padding-bottom: 0px;    
+  }
+  th.control {
+    width: 120px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   td.set-done {
     width: 30px;
