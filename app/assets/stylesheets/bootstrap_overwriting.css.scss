@@ -36,6 +36,9 @@ $blue-header: #4572A8;
   th {
     background-color: $blue-header !important;
     color: white;
+    p {
+      margin: 2px 0 9px 10px;
+    }
   }
   &.add-new {
     .btn {
