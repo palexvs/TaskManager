@@ -1,9 +1,14 @@
 <div class="modal" id="myModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3><%= @task.name %></h3>
+    <h3><%= controller.action_name.capitalize %> Task</h3>
   </div>
   <div class="modal-body">
+
+<p>
+  <b>Name:</b>
+  <%= @task.name %>
+</p>
 
 <p>
   <b>Priority:</b>
