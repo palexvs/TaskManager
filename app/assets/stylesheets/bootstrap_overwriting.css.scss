@@ -1,18 +1,9 @@
 @import "bootstrap";
 $blue-header: #4572A8;
 
+/* Top Menu */
 .navbar .container{
   width: 940px;
-}
-
-.table {
-  .nav {
-    margin: 0;
-  }
-  th {
-    background-color: $blue-header !important;
-    color: white;
-  }
 }
 
 .modal,
@@ -39,6 +30,13 @@ $blue-header: #4572A8;
 }
 
 .table-striped tbody tr {
+  .nav {
+    margin: 0;
+  }
+  th {
+    background-color: $blue-header !important;
+    color: white;
+  }
   th, td {
     height: 34px;
   }
@@ -88,23 +86,41 @@ $blue-header: #4572A8;
   }
 }
 
-.modal,
-.login-register {
+
+/* Modal Window */
+.modal {
   width: 250px;
   margin-left: -125px;
-}
-.modal-header {
-  background-color: $blue-header;
+
+  .modal-header {
+    background-color: $blue-header;
+  }
+
+  form {
+    margin: 0;
+  }  
+
+  .modal-footer .button-container {
+    margin: 0 auto;
+    position: relative;
+    display: table;
+    
+    span {
+      margin: 0 10px;
+    }
+    input {
+      float: none;
+    }
+  }
 }
 
+/* Title "SIMPLE TODO LISTS" */
 #title {
   text-align: center;
   margin: 10px 0;
 }
 
-#alert-area {
-}
-
+/* Commom styles */
 a.no-visited-hightlite:visited {
   color: #ffffff;
 }
@@ -113,10 +129,10 @@ a.no-visited-hightlite:visited {
   text-align: center;
 }
 
+/* Background Gradient */
 html, body {
   height: 100%;
 }
-
 body { 
   background-image: linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
   background-image: -o-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
