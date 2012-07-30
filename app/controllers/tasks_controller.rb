@@ -19,21 +19,19 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update_attributes(params[:task])
+    respond_to do |format|
+      if @task.update_attributes(params[:task])
+        format.json { head :no_content }
+        format.js
+      else
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end    
   end
 
   def destroy
     @task.destroy
-  end
-
-  def set_status
-    respond_to do |format|
-      if @task.update_attributes(done: params[:task_status])
-        format.json { head :no_content }
-      else
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   private

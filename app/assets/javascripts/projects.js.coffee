@@ -19,11 +19,10 @@ LogIn()
 
 @SetTaskStatus = (ch)->
   n = ch.parents("tr").attr("id").split("-")
-  params = {project_id: n[0], id: n[1], task_status: ch.is(":checked")}
+  params = { task: {done: ch.is(":checked") } }
   request = $.ajax
     type: 'put'
-    url: '/set_task_status'
+    url: '/projects/'+n[0]+'/tasks/'+n[1]
     dataType: 'json'
     data: params
-  request.done ->
-    LoadProjectList()
+    complete: -> LoadProjectList()
