@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+$('#main td.set-done input:checkbox').live('change', () -> SetTaskStatus($(this)) )
+$('td.control .priority a').live('ajax:error', () -> LoadProjectList())
+$('td.control .priority a').live('ajax:success', () -> MoveRow($(this)))
+
 @LogIn = ()->
   $.ajax
     type: 'get'
@@ -26,3 +30,11 @@ LogIn()
     dataType: 'json'
     data: params
     complete: -> LoadProjectList()
+
+@MoveRow= (object) ->
+  thisRow = object.parents("tr")
+  if object.hasClass('up')
+    thisRow.insertBefore( thisRow.prev() )
+  else
+    if object.hasClass('down')
+      thisRow.insertAfter( thisRow.next() )
