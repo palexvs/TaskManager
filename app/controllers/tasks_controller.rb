@@ -30,11 +30,13 @@ class TasksController < ApplicationController
   end
 
   def change_priority
-    @task.change_priority(params[:direction])
-
     respond_to do |format|
-      format.json { head :no_content }
-    end    
+      if @task.change_priority(params[:direction])
+          format.json { head :no_content }
+        else
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+      end    
+    end
   end
 
   def destroy

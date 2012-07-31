@@ -36,9 +36,12 @@ class Task < ActiveRecord::Base
 
     if !task_next.nil?
       task_next.priority, self.priority = self.priority, task_next.priority
-      task_next.save
-      self.save
+      if task_next.save and self.save
+        return true
+      end
     end    
+    errors.add(:priority, "can't change")
+    return false
   end
 
   private
@@ -48,7 +51,7 @@ class Task < ActiveRecord::Base
   end
 
   def deadline_cannot_be_in_the_past
-    if !deadline.blank? and deadline < Date.today
+    if !self.deadline.blank? and self.deadline < Date.today
       errors.add(:deadline, "can't be in the past")
     end
   end
