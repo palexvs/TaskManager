@@ -3,8 +3,11 @@ TaskManager::Application.routes.draw do
   root to: 'sessions#home'
 
   resources :projects do
-    resources :tasks, only: [:show, :create, :edit, :update, :destroy]
+    resources :tasks, only: [:show, :create, :edit, :update, :destroy] do
+    end
   end
+  match '/projects/:project_id/tasks/:id/priority/:direction' => 'tasks#change_priority', :as => :task_change_priority,  via: :put
+
   match '/projects' => 'projects#index', via: [:delete, :put, :get]
 
   resources :sessions, only: [:new, :create, :destroy, :index]

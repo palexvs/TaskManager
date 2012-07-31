@@ -22,9 +22,30 @@ class Task < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 125 }
   validates :description, length: { maximum: 255 }
-  validates :priority, numericality: { only_integer: true, less_than: 100, greater_than_or_equal_to: 0 }
 
   validate :deadline_cannot_be_in_the_past
+
+  before_create :set_priority
+
+  def change_priority(direction=nil)
+    if direction == 'up'
+      task_next = Task.where('project_id = ? AND priority < ?', self.project_id, self.priority).order("priority ASC").last
+    elsif direction == 'down'
+      task_next = Task.where('project_id = ? AND priority > ?', self.project_id, self.priority).order("priority ASC").first
+    end
+
+    if !task_next.nil?
+      task_next.priority, self.priority = self.priority, task_next.priority
+      task_next.save
+      self.save
+    end    
+  end
+
+  private
+
+  def set_priority
+    self.priority = Task.last.id + 1
+  end
 
   def deadline_cannot_be_in_the_past
     if !deadline.blank? and deadline < Date.today

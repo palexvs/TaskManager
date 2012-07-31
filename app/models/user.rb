@@ -28,6 +28,6 @@ class User < ActiveRecord::Base
   before_save :create_sid
 
   def create_sid
-      self.sid = SecureRandom.urlsafe_base64
-    end
+    self.sid = SecureRandom.urlsafe_base64
+  end
 end
