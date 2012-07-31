@@ -24,9 +24,9 @@
       <td class="control">
         <ul class="nav nav-pills hide">
           <li class="priority">
-            <%= link_to task_change_priority_path(project, task,'up'), class: "up",  method: :put, remote: true do %>
+            <%= link_to change_priority_project_task_path(project, task, direction: "up"), class: "up", title: "Up priority",  method: :put, remote: true do %>
               <i class="icon-arrow-up"></i><% end %>
-            <%= link_to task_change_priority_path(project, task,'down'), class: "down",  method: :put, remote: true do %>
+            <%= link_to change_priority_project_task_path(project, task, direction: "down"), class: "down", title: "Down priority",  method: :put, remote: true do %>
               <i class="icon-arrow-down"></i><% end %>
           </li>          
           <li><%= link_to [project, task], remote: true do %><i class="icon-chevron-right"></i><% end %></li>
