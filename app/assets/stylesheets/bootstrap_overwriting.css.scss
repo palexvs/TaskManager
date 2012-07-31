@@ -29,15 +29,45 @@ $blue-header: #4572A8;
   -moz-border-radius-bottomleft: 7px;
 }
 
-.table-striped tbody tr {
+/* Project's list Table*/
+.projects-list tr {
+  /* Control Buttons */
   .nav {
     margin: 0;
   }
-  th {
-    background-color: $blue-header !important;
-    color: white;
-    p {
-      margin: 2px 0 9px 10px;
+  &:nth-child(3) a.up, &:last-child a.down{
+    opacity: 0.1;
+    cursor: default;
+    pointer-events: none;
+  }
+  td.control {
+    width: 120px;
+    padding-top: 2px;
+    padding-bottom: 0px;
+    a {
+      padding: 6px;
+      &.up { 
+        margin-bottom: 1px;
+        padding: 1px 6px 0px 6px; 
+      }
+      &.down { 
+        margin-top: 1px;
+        padding: 0px 6px 1px 6px; 
+      }
+    }
+  }
+  th.control {
+    width: 120px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    a {
+      padding: 6px;
+    }    
+  }
+  td.set-done {
+    width: 30px;
+    input[type="checkbox"] {
+      margin: 8px 0 0 7px;
     }
   }
   &.add-new {
@@ -53,6 +83,17 @@ $blue-header: #4572A8;
       float: left;
     }
   }
+
+  /* Head row in Table */
+  th {
+    background-color: $blue-header !important;
+    color: white;
+    p {
+      margin: 3px;
+    }
+  }
+
+  /* Other Common styles */
   &:nth-child(odd) td {
     background-color: rgba(249, 249, 249, 0.6);
   }
@@ -67,25 +108,9 @@ $blue-header: #4572A8;
       display: block !important;
     }
   }
-  td.control {
-    width: 120px;
-    padding-top: 2px;
-    padding-bottom: 0px;    
-  }
-  th.control {
-    width: 120px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-  td.set-done {
-    width: 30px;
-    input[type="checkbox"] {
-      margin: 8px 0 0 7px;
-    }
-  }
   td.name {
     p {
-      margin-top: 6px
+      margin: 6px
     }
   }
   &.status-done td {
@@ -136,11 +161,21 @@ a.no-visited-hightlite:visited {
   text-align: center;
 }
 
+.clear {
+  clear: both;
+}
+
 /* Background Gradient */
+.wrapper {
+  min-height: 100%;
+  height: auto;
+  display: block;
+}
 html, body {
   height: 100%;
+  display: block;
 }
-body { 
+.wrapper { 
   background-image: linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
   background-image: -o-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
   background-image: -moz-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);

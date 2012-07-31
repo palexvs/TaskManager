@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725153156) do
+ActiveRecord::Schema.define(:version => 20120730221251) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120725153156) do
     t.boolean  "done",        :default => false
   end
 
+  add_index "tasks", ["project_id", "id"], :name => "index_tasks_on_project_id_and_id"
+  add_index "tasks", ["project_id", "priority"], :name => "index_tasks_on_project_id_and_priority"
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
 
   create_table "users", :force => true do |t|

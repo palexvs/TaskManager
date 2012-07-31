@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   respond_to :js
 
   before_filter :get_project
-  before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status]
+  before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status, :change_priority]
 
   def show
   end
@@ -13,8 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    default_task = {priority: 0}
-    @task = @project.task.build(default_task.merge(params[:task]))
+    @task = @project.task.build(params[:task])
     @task.save
   end
 
@@ -27,6 +26,14 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
         format.js
       end
+    end    
+  end
+
+  def change_priority
+    @task.change_priority(params[:direction])
+
+    respond_to do |format|
+      format.json { head :no_content }
     end    
   end
 

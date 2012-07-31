@@ -13,7 +13,7 @@
 class Project < ActiveRecord::Base
   belongs_to :user
   attr_accessible :description, :name
-  has_many :task, :dependent => :destroy, :order => "priority"
+  has_many :task, :dependent => :destroy, :order => "priority ASC"
 
   scope :with_task, includes(:task)
 
