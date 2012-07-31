@@ -20,7 +20,7 @@
   <% project.task.each do |task| %>
     <tr class="<%= "status-done" if task.done %>" id="<%= "#{project.id}-#{task.id}" %>">
       <td class="set-done"><%= check_box 'task', 'done', :checked => task.done, id: "task-status-#{task.id}", class: "task-status-chekbox"  %></td>
-      <td class="name"><p><%= task.name %> <%= task.priority %></p></td>
+      <td class="name"><p><%= task.name %></p></td>
       <td class="control">
         <ul class="nav nav-pills hide">
           <li class="priority">
