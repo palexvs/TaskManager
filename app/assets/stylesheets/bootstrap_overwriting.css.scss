@@ -38,7 +38,7 @@ $blue-header: #4572A8;
   &:nth-child(3) a.up, &:last-child a.down{
     opacity: 0.1;
     cursor: default;
-    pointer-events: none;
+/*    pointer-events: none; */
   }
   td.control {
     width: 120px;

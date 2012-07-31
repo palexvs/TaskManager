@@ -29,7 +29,8 @@ LogIn()
     url: '/projects/'+n[0]+'/tasks/'+n[1]
     dataType: 'json'
     data: params
-    complete: -> LoadProjectList()
+    error: -> LoadProjectList()
+    success: -> ch.parents("tr").toggleClass('status-done')
 
 @MoveRow= (object) ->
   thisRow = object.parents("tr")
