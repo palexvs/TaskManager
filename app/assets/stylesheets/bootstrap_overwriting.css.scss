@@ -47,11 +47,11 @@ $blue-header: #4572A8;
     a {
       padding: 6px;
       &.up { 
-        margin-bottom: 1px;
+        margin: 0;
         padding: 1px 6px 0px 6px; 
       }
       &.down { 
-        margin-top: 1px;
+        margin: 0;
         padding: 0px 6px 1px 6px; 
       }
     }
