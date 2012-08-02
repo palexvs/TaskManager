@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   respond_to :js
 
+  before_filter :loged_in
   before_filter :get_project
   before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status, :change_priority]
 
@@ -14,7 +15,13 @@ class TasksController < ApplicationController
 
   def create
     @task = @project.task.build(params[:task])
-    @task.save
+    respond_to do |format|
+      if @task.save
+          format.html { render partial: 'projects/task-row', locals: { task: @task } }
+        else
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+      end    
+    end    
   end
 
   def update
@@ -50,6 +57,10 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def loged_in
+      redirect_to login_path if !signed_in?
+  end  
 
   def get_task
     @task = @project.task.find(params[:id])
