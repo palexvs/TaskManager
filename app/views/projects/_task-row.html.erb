@@ -1,19 +1,41 @@
-<tr class="<%= "status-done" if task.done %>" id="<%= "#{project.id}-#{task.id}" %>">
-  <td class="set-done"><%= check_box 'task', 'done', :checked => task.done, id: "task-status-#{task.id}", class: "task-status-chekbox"  %></td>
-  <td class="name"><p><%= task.name %></p></td>
+<tr class="<%= "status-done" if task.done %>" id="<%= "#{task.project_id}-#{task.id}" %>">
+  
+  <!-- CheckBox "Set Done Status" -->
+  <td class="set-done">
+    <%= check_box 'task', 'done', :checked => task.done, class: "task-status-chekbox" %>
+  </td>
+  
+  <!-- Task Name -->
+  <td class="name">
+    <p><%= task.name %></p>
+  </td>
+
+  <!-- Buttons: Up/Down  Priority, Details, Edit, Delete  -->
   <td class="control">
     <ul class="nav nav-pills hide">
       <li class="priority">
-        <%= link_to change_priority_project_task_path(project, task, direction: "up"), class: "up", title: "Up priority",  method: :put, remote: true do %>
-          <i class="icon-arrow-up"></i><% end %>
-        <%= link_to change_priority_project_task_path(project, task, direction: "down"), class: "down", title: "Down priority",  method: :put, remote: true do %>
-          <i class="icon-arrow-down"></i><% end %>
+        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "up"), class: "up", title: "Up priority",  method: :put, remote: true do %>
+          <i class="icon-arrow-up"></i>
+        <% end %>
+        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "down"), class: "down", title: "Down priority",  method: :put, remote: true do %>
+          <i class="icon-arrow-down"></i>
+        <% end %>
       </li>          
-      <li><%= link_to [project, task], class: "show", title: "Task details", remote: true do %>
-        <i class="icon-chevron-right"></i><% end %></li>
-      <li><%= link_to [:edit, project, task], class: "edit", title: "Edit task", remote: true do %>
-        <i class="icon-pencil"></i><% end %></li>
-      <li><%= link_to [project, task], class: "delete", title: "Remove task", method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %><i class="icon-trash"></i><% end %></li>
+      <li>
+        <%= link_to project_task_path(task.project_id, task), class: "show", title: "Task details", remote: true do %>
+          <i class="icon-chevron-right"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to edit_project_task_path(task.project_id, task), class: "edit", title: "Edit task", remote: true do %>
+          <i class="icon-pencil"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to project_task_path(task.project_id, task), class: "delete", title: "Remove task", method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
+          <i class="icon-trash"></i>
+        <% end %>
+      </li>
     </ul>
   </td>
 </tr>
