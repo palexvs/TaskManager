@@ -29,6 +29,16 @@ class TasksController < ApplicationController
     end    
   end
 
+  def destroy
+    respond_to do |format|
+      if @task.destroy
+          format.json { head :no_content }
+        else
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+      end    
+    end
+  end  
+
   def change_priority
     respond_to do |format|
       if @task.change_priority(params[:direction])
@@ -37,10 +47,6 @@ class TasksController < ApplicationController
           format.json { render json: @task.errors, status: :unprocessable_entity }
       end    
     end
-  end
-
-  def destroy
-    @task.destroy
   end
 
   private
