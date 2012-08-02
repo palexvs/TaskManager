@@ -16,7 +16,7 @@
 class Task < ActiveRecord::Base
   belongs_to :status
   belongs_to :project
-  attr_accessible :deadline, :description, :name, :priority, :done
+  attr_accessible :deadline, :description, :name, :done
 
   delegate :name, :to => :project, :prefix => true
 

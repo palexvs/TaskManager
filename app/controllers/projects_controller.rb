@@ -31,8 +31,14 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-  end
+    respond_to do |format|
+      if @project.destroy
+          format.json { head :no_content }
+        else
+          format.json { render json: @project.errors, status: :unprocessable_entity }
+      end    
+    end
+  end  
 
   private
 

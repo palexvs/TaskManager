@@ -10,6 +10,13 @@ $('td.control .priority a').live('ajax:success', () -> MoveRow($(this)))
 $('td.control a.delete').live('ajax:error', () -> LoadProjectList())
 $('td.control a.delete').live('ajax:success', () -> RemoveRow($(this)))
 
+$('tr.add-new form').live('ajax:error', () -> LoadProjectList())
+$('tr.add-new form').live('ajax:success', (xhr, data) -> AddRow($(this),xhr, data))
+
+$('th.control a.delete').live('ajax:error', () -> LoadProjectList())
+$('th.control a.delete').live('ajax:success', () -> RemoveTable($(this)))
+
+
 @LogIn = ()->
   $.ajax
     type: 'get'
@@ -47,3 +54,11 @@ LogIn()
 @RemoveRow= (object) ->
   thisRow = object.parents("tr")
   thisRow.fadeOut(500, -> thisRow.remove())
+
+@AddRow= (object, xhr, data) ->
+  thisTable = object.parents("table")
+  thisTable.append(data)
+
+@RemoveTable= (object) ->
+  thisTable = object.parents("table")
+  thisTable.fadeOut(500, -> thisTable.remove())
