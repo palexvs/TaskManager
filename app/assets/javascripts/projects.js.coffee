@@ -65,6 +65,7 @@ jQuery ->
 @AddRow= (object, xhr, html) ->
   thisTable = object.parents("table")
   thisTable.append(html)
+  object[0].reset()
 
 @RemoveTable= (object) ->
   thisTable = object.parents("table")
