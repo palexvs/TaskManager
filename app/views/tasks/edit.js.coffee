@@ -1,5 +1,0 @@
-$('#myModal').modal('hide')
-$("<%= escape_javascript(render 'tasks/edit')%>").appendTo('#modal').hide()
-$('#myModal').on('hidden', -> $('#modal').html('') )
-$('#myModal').modal({show:true, backdrop: true})
-$('#task_deadline').datetimepicker({minDate: new Date(), dateFormat: 'yy-mm-dd',})
