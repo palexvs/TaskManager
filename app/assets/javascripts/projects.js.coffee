@@ -3,8 +3,12 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $('#main td.set-done input:checkbox').live('change', () -> SetTaskStatus($(this)) )
+
 $('td.control .priority a').live('ajax:error', () -> LoadProjectList())
 $('td.control .priority a').live('ajax:success', () -> MoveRow($(this)))
+
+$('td.control a.delete').live('ajax:error', () -> LoadProjectList())
+$('td.control a.delete').live('ajax:success', () -> RemoveRow($(this)))
 
 @LogIn = ()->
   $.ajax
@@ -39,3 +43,7 @@ LogIn()
   else
     if object.hasClass('down')
       thisRow.insertAfter( thisRow.next() )
+
+@RemoveRow= (object) ->
+  thisRow = object.parents("tr")
+  thisRow.fadeOut(500, -> thisRow.remove())
