@@ -4,11 +4,17 @@
 
 $('#main td.set-done input:checkbox').live('change', () -> SetTaskStatus($(this)) )
 
-$('td.control .priority a').live('ajax:error', () -> LoadProjectList())
-$('td.control .priority a').live('ajax:success', () -> MoveRow($(this)))
+$('a.task-priority-up, a.task-priority-down').live('ajax:error', () -> LoadProjectList())
+$('a.task-priority-up, a.task-priority-down').live('ajax:success', () -> MoveRow($(this)))
 
-$('td.control a.delete').live('ajax:error', () -> LoadProjectList())
-$('td.control a.delete').live('ajax:success', () -> RemoveRow($(this)))
+$('a.task-delete').live('ajax:error', () -> LoadProjectList())
+$('a.task-delete').live('ajax:success', () -> RemoveRow($(this)))
+
+$('a.task-show').live('ajax:error', () -> LoadProjectList())
+$('a.task-show').live('ajax:success', (xhr, data) -> ShowTaskDetails($(this),xhr, data))
+
+$('a.task-edit').live('ajax:error', () -> LoadProjectList())
+$('a.task-edit').live('ajax:success', (xhr, data) -> ShowTaskEdit($(this),xhr, data))
 
 $('tr.add-new form').live('ajax:error', () -> LoadProjectList())
 $('tr.add-new form').live('ajax:success', (xhr, data) -> AddRow($(this),xhr, data))
@@ -17,13 +23,14 @@ $('th.control a.delete').live('ajax:error', () -> LoadProjectList())
 $('th.control a.delete').live('ajax:success', () -> RemoveTable($(this)))
 
 
+jQuery ->
+  LogIn()
+
 @LogIn = ()->
   $.ajax
     type: 'get'
     url: '/sessions/'
     dataType: 'script'
-
-LogIn()
 
 @LoadProjectList = ()->
   $.ajax
@@ -45,20 +52,33 @@ LogIn()
 
 @MoveRow= (object) ->
   thisRow = object.parents("tr")
-  if object.hasClass('up')
+  if object.hasClass('task-priority-up')
     thisRow.insertBefore( thisRow.prev() )
   else
-    if object.hasClass('down')
+    if object.hasClass('task-priority-down')
       thisRow.insertAfter( thisRow.next() )
 
 @RemoveRow= (object) ->
   thisRow = object.parents("tr")
   thisRow.fadeOut(500, -> thisRow.remove())
 
-@AddRow= (object, xhr, data) ->
+@AddRow= (object, xhr, html) ->
   thisTable = object.parents("table")
-  thisTable.append(data)
+  thisTable.append(html)
 
 @RemoveTable= (object) ->
   thisTable = object.parents("table")
   thisTable.fadeOut(500, -> thisTable.remove())
+
+@ShowTaskDetails= (object, xhr, html) ->
+  $('#myModal').modal('hide')
+  $(html).appendTo('#modal').hide()
+  $('#myModal').on('hidden', -> $('#modal').html('') )
+  $('#myModal').modal('show')  
+
+@ShowTaskEdit= (object, xhr, html) ->
+  $('#myModal').modal('hide')
+  $(html).appendTo('#modal').hide()
+  $('#myModal').on('hidden', -> $('#modal').html('') )
+  $('#myModal').modal('show')
+  $('#myModal #task_deadline').datetimepicker({minDate: new Date(), dateFormat: 'yy-mm-dd',})  

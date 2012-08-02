@@ -35,7 +35,7 @@ $blue-header: #4572A8;
   .nav {
     margin: 0;
   }
-  &:nth-child(3) a.up, &:last-child a.down{
+  &:nth-child(3) a.task-priority-up, &:last-child a.task-priority-down{
     opacity: 0.1;
     cursor: default;
     pointer-events: none;
@@ -46,11 +46,11 @@ $blue-header: #4572A8;
     padding-bottom: 0px;
     a {
       padding: 6px;
-      &.up { 
+      &.task-priority-up { 
         margin: 0;
         padding: 1px 6px 0px 6px; 
       }
-      &.down { 
+      &.task-priority-down { 
         margin: 0;
         padding: 0px 6px 1px 6px; 
       }

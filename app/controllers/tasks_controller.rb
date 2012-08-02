@@ -8,9 +8,15 @@ class TasksController < ApplicationController
   before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status, :change_priority]
 
   def show
+    respond_to do |format|
+      format.html { render partial: 'task' }
+    end
   end
 
   def edit
+    respond_to do |format|
+      format.html { render partial: 'edit' }
+    end    
   end
 
   def create
