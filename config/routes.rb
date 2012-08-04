@@ -2,7 +2,7 @@ TaskManager::Application.routes.draw do
 
   root to: 'sessions#home'
 
-  resources :projects do
+  resources :projects, except: [:show] do
     resources :tasks, except: [:index, :new] do
       member do
         put 'change_priority'

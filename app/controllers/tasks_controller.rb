@@ -1,11 +1,7 @@
 class TasksController < ApplicationController
-  include SessionsHelper
-
-  respond_to :js
-
   before_filter :loged_in
   before_filter :get_project
-  before_filter :get_task, only: [:show, :edit, :update, :destroy, :set_status, :change_priority]
+  before_filter :get_task, except: [:create]
 
   def show
     respond_to do |format|
@@ -16,7 +12,7 @@ class TasksController < ApplicationController
   def edit
     respond_to do |format|
       format.html { render partial: 'edit' }
-    end    
+    end
   end
 
   def create
@@ -34,10 +30,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update_attributes(params[:task])
         format.json { head :no_content }
-        format.js
       else
         format.json { render json: @task.errors, status: :unprocessable_entity }
-        format.js
       end
     end    
   end
@@ -64,21 +58,18 @@ class TasksController < ApplicationController
 
   private
 
-  def loged_in
-      redirect_to login_path if !signed_in?
-  end  
-
   def get_task
-    @task = @project.task.find(params[:id])
+    @task = @project.task.find_by_id(params[:id])
     if @task.nil?
-      redirect_to projects_path, alert: "Can't get task"
+      render json: "Can't get such task", status: :unprocessable_entity
     end
   end
 
   def get_project
     @project = current_user.project.find_by_id(params[:project_id])
+
     if @project.nil?
-      redirect_to projects_path, alert: "Can't get project"
+      render json: "Can't get such project", status: :unprocessable_entity
     end
   end
 
