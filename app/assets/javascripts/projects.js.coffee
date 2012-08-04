@@ -19,24 +19,49 @@ $('a.task-edit').live('ajax:success', (xhr, data) -> ShowTaskEdit($(this),xhr, d
 $('tr.add-new form').live('ajax:error', () -> LoadProjectList())
 $('tr.add-new form').live('ajax:success', (xhr, data) -> AddRow($(this),xhr, data))
 
+$('form.project-add-edit').live('ajax:error', () -> LoadProjectList())
+$('form.project-add-edit').live('ajax:success', (xhr, data) -> AddUpdateProject($(this),xhr, data))
+
+$('form.login-register').live('ajax:error', (xhr, err) -> LogRegErr(err))
+$('form.login-register').live('ajax:success', (xhr, data) -> LogRegOK(xhr, data))
+
 $('th.control a.delete').live('ajax:error', () -> LoadProjectList())
 $('th.control a.delete').live('ajax:success', () -> RemoveTable($(this)))
 
+$('a.project-add, a.project-edit').live('ajax:error', () -> LoadProjectList())
+$('a.project-add, a.project-edit').live('ajax:success', (xhr, data) -> OpenProjectWindow($(this),xhr, data))
+
 
 jQuery ->
-  LogIn()
+  IsLogIn()
+
+@IsLogIn = ()->
+  $.ajax
+    type: 'get'
+    url: '/sessions/'
+    success: -> LoadProjectList()
+    error: -> LogIn()
 
 @LogIn = ()->
   $.ajax
     type: 'get'
-    url: '/sessions/'
-    dataType: 'script'
+    url: '/login'
+    success: (html, xhr) -> OpenModalWindow(html)
+
+@LogRegOK = (xhr, data) ->
+  CloseModalWIndow()
+  LoadProjectList()
+
+@LogRegErr= (errors) ->
+  errs = JSON.parse(errors.responseText)
+  newAlert('error', err, 'alert-area-modal') for err in errs
 
 @LoadProjectList = ()->
   $.ajax
     type: 'get'
     url: '/projects/'
-    dataType: 'script'
+    success: (data, xhr) -> $('#main').html(data).hide().fadeIn()
+    error: (err, status) -> newAlert('error', err.responseText, 'alert-area')
 
 
 @SetTaskStatus = (ch)->
@@ -71,15 +96,25 @@ jQuery ->
   thisTable = object.parents("table")
   thisTable.fadeOut(500, -> thisTable.remove())
 
-@ShowTaskDetails= (object, xhr, html) ->
+@AddUpdateProject= (object, xhr, html) ->
   $('#myModal').modal('hide')
-  $(html).appendTo('#modal').hide()
-  $('#myModal').on('hidden', -> $('#modal').html('') )
-  $('#myModal').modal('show')  
+  LoadProjectList()
+
+@OpenProjectWindow= (object, xhr, html) ->
+  @OpenModalWindow(html)
+
+@ShowTaskDetails= (object, xhr, html) ->
+  @OpenModalWindow(html)
 
 @ShowTaskEdit= (object, xhr, html) ->
+  @OpenModalWindow(html)
+  $('#myModal #task_deadline').datetimepicker({minDate: new Date(), dateFormat: 'yy-mm-dd',})  
+
+@OpenModalWindow= (html) ->
   $('#myModal').modal('hide')
   $(html).appendTo('#modal').hide()
   $('#myModal').on('hidden', -> $('#modal').html('') )
   $('#myModal').modal('show')
-  $('#myModal #task_deadline').datetimepicker({minDate: new Date(), dateFormat: 'yy-mm-dd',})  
+
+@CloseModalWIndow= () ->
+  $('#myModal').modal('hide')

@@ -6,6 +6,6 @@ function newAlert (type, message, id) {
   if( type == "error") {
     delay_ms = 6000;
   }
-  $("#"+id).html($("<div class='alert-message alert alert-" + type + " fade in' data-alert><p> " + message + " </p></div>"));
+  $("<div class='alert-message alert alert-" + type + " fade in' data-alert><p> " + message + " </p></div>").appendTo("#"+id);
   $(".alert-message").delay(delay_ms).fadeOut("slow", function () { $(this).remove(); });
 }
