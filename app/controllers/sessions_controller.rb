@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       if signed_in?
         format.json { head :no_content }
       else
-        format.json { render :json => 'You are not loged in', status: :unprocessable_entity }
+        format.json { render json: ['You are not loged in'], status: :unprocessable_entity }
       end
     end
   end
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
         sign_in user
         format.json { head :no_content }
       else
-        format.json { render :json => 'Wrong email or password', status: :unprocessable_entity }
+        format.json { render json: ['Wrong email or password'], status: :unprocessable_entity }
       end
     end
   end

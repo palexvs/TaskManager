@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
       if @project.save
           format.json { head :no_content }
         else
-          format.json { render json: @project.errors, status: :unprocessable_entity }
+          format.json { render json: @project.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
       if @project.update_attributes(params[:project])
           format.json { head :no_content }
         else
-          format.json { render json: @project.errors, status: :unprocessable_entity }
+          format.json { render json: @project.errors.full_messages, status: :unprocessable_entity }
       end    
     end    
   end
@@ -45,7 +45,7 @@ class ProjectsController < ApplicationController
       if @project.destroy
           format.json { head :no_content }
         else
-          format.json { render json: @project.errors, status: :unprocessable_entity }
+          format.json { render json: @project.errors.full_messages, status: :unprocessable_entity }
       end    
     end
   end  
@@ -54,8 +54,9 @@ class ProjectsController < ApplicationController
 
   def get_project
     @project = current_user.project.find_by_id(params[:id])
+    
     if @project.nil?
-      redirect_to projects_path, alert: "Can't get project"
+      render json: ["Can't get such project"], status: :unprocessable_entity
     end
   end
 

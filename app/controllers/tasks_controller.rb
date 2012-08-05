@@ -21,7 +21,7 @@ class TasksController < ApplicationController
       if @task.save
           format.html { render partial: 'projects/task-row', locals: { task: @task } }
         else
-          format.json { render json: @task.errors, status: :unprocessable_entity }
+          format.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end    
     end    
   end
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
       if @task.update_attributes(params[:task])
         format.json { head :no_content }
       else
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end
     end    
   end
@@ -41,7 +41,7 @@ class TasksController < ApplicationController
       if @task.destroy
           format.json { head :no_content }
         else
-          format.json { render json: @task.errors, status: :unprocessable_entity }
+          format.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end    
     end
   end  
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
       if @task.change_priority(params[:direction])
           format.json { head :no_content }
         else
-          format.json { render json: @task.errors, status: :unprocessable_entity }
+          format.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end    
     end
   end
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
   def get_task
     @task = @project.task.find_by_id(params[:id])
     if @task.nil?
-      render json: "Can't get such task", status: :unprocessable_entity
+      render json: ["Can't get such task"], status: :unprocessable_entity
     end
   end
 
@@ -69,7 +69,7 @@ class TasksController < ApplicationController
     @project = current_user.project.find_by_id(params[:project_id])
 
     if @project.nil?
-      render json: "Can't get such project", status: :unprocessable_entity
+      render json: ["Can't get such project"], status: :unprocessable_entity
     end
   end
 
