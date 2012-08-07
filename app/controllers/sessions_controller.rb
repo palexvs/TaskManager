@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def index
     respond_to do |format|
       if signed_in?
-        format.json { head :no_content }
+        format.json { render json: current_user.to_json(only: :email) }
       else
         format.json { render json: ['You are not loged in'], status: :unprocessable_entity }
       end
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     respond_to do |format|
       if user && user.authenticate(params[:user][:password])
         sign_in user
-        format.json { head :no_content }
+        format.json { render json: current_user.to_json(only: :email) }
       else
         format.json { render json: ['Wrong email or password'], status: :unprocessable_entity }
       end

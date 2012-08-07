@@ -21,7 +21,7 @@ $('form.task-add-edit').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
 $('form.task-add-edit').live('ajax:success', (xhr, data) -> UpdateTask())
 
 UpdateTask= () ->
-  $('#myModal').modal('hide')
+  CloseModalWindow()
   LoadProjectList()
 
 # Change Task Status

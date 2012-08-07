@@ -5,16 +5,16 @@ SQL TASK:
 select DISTINCT status from tasks ORDER BY status asc;
 
 2. get the count of all tasks in each project, order by tasks count descending
-select project_id, count(*) as task_count from tasks GROUP BY project_id ORDER BY task_count ASC;
+select projects.id, count(tasks) as task_count from tasks right join projects on (tasks.project_id = projects.id) GROUP BY projects.id ORDER BY task_count ASC;
 
 3. get the count of all tasks in each project, order by projects names
-select projects.name, count(*) from tasks inner join projects on (tasks.project_id = projects.id) GROUP BY projects.id ORDER BY projects.name ASC;
+select projects.name, count(tasks) from tasks right join projects on (tasks.project_id = projects.id) GROUP BY projects.id ORDER BY projects.name ASC;
 
 4. get the tasks for all projects having the name beginning with “N” letter
 select projects.name, tasks.name from tasks inner join projects on (tasks.project_id = projects.id) where tasks.name like 'N%';
 
 5. get the list of all projects containing the ‘a’ letter in the middle of the name, and show the tasks count near each project. Mention that there can exist projects without tasks and tasks with project_id=NULL
-select projects.name, count(*) from tasks right join projects on (tasks.project_id = projects.id) where projects.name like '%a%' GROUP BY projects.id;
+select projects.name, count(tasks) from tasks right join projects on (tasks.project_id = projects.id) where projects.name like '%a%' GROUP BY projects.id;
 
 6. get the list of tasks with duplicate names. Order alphabetically
 select id, name from tasks where name in (select name from tasks GROUP BY name HAVING count(*) > 1);

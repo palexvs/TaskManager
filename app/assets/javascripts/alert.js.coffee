@@ -6,10 +6,10 @@
       else
         id = "alert-area"
 
-    delay_ms = if type == "error" then 6000 else 2000
+    delay_ms = if type == "error" then 4000 else 2000
 
     for message in messages
       if message?
-       $("<div class='alert-message alert alert-#{type} fade in' data-alert><p>#{message}</p></div>").appendTo("##{id}")
-    
-    $(".alert-message").delay(delay_ms).fadeOut("slow", () -> $(this).remove() )
+        alert = $("<div class='alert-message alert alert-#{type} fade in' data-alert><p>#{message}</p></div>")
+        alert.appendTo("##{id}")
+        alert.delay(delay_ms).fadeOut("slow", () -> $(this).remove() )
