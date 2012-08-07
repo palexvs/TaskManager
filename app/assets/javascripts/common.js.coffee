@@ -4,7 +4,7 @@
   $('#myModal').on('hidden', -> $('#modal').html('') )
   $('#myModal').modal('show')
 
-@CloseModalWIndow= () ->
+@CloseModalWindow= () ->
   $('#myModal').modal('hide')
 
 @ShowErrMsg= (errors) ->

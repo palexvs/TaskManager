@@ -1,11 +1,13 @@
 jQuery ->
+  $('div.navbar li.logout').hide()
   IsLogIn()
 
 IsLogIn = ()->
   $.ajax
     type: 'get'
     url: '/sessions/'
-    success: -> LoadProjectList()
+    success: (data, xhr) -> 
+      LogRegOK(data)
     error: -> LogIn()
 
 LogIn = ()->
@@ -17,8 +19,11 @@ LogIn = ()->
 $('form.login-register').live('ajax:error', (xhr, err) -> LogRegErr(err))
 $('form.login-register').live('ajax:success', (xhr, data) -> LogRegOK(data))
 
-LogRegOK = (xhr, data) ->
-  CloseModalWIndow()
+LogRegOK = (data) ->
+  $('div.navbar li.login').hide()
+  $('div.navbar li.user_email').html("<a>#{data.email}</a>").show()
+  $('div.navbar li.logout').show()
+  CloseModalWindow()
   LoadProjectList()
 
 LogRegErr= (errors) ->

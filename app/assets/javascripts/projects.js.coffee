@@ -27,5 +27,5 @@ $('form.project-add-edit').live('ajax:error', (xhr, err) -> HandleCommonErr(err)
 $('form.project-add-edit').live('ajax:success', (xhr, data) -> AddUpdateProject())
 
 AddUpdateProject= () ->
-  $('#myModal').modal('hide')
+  CloseModalWindow()
   LoadProjectList()
