@@ -2,6 +2,7 @@
 SQL TASK:
 
 1. get all statuses, not repeating, alphabetically ordered
+<<<<<<< HEAD
   select DISTINCT status from tasks ORDER BY status asc;
 
 2. get the count of all tasks in each project, order by tasks count descending

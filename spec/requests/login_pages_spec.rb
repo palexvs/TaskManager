@@ -30,11 +30,6 @@ describe "Authentication", :js => true do
       click_button "Login"
     end
     it { should have_selector('div.navbar li.user_email a', text: user.email) }
-    it  { 
-      puts last_response.class 
-      puts last_response.inspect 
-#      response.should have_content_type('application/json') 
-    }
   end  
 
 end
