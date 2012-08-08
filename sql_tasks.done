@@ -2,7 +2,6 @@
 SQL TASK:
 
 1. get all statuses, not repeating, alphabetically ordered
-<<<<<<< HEAD
   select DISTINCT status from tasks ORDER BY status asc;
 
 2. get the count of all tasks in each project, order by tasks count descending
@@ -12,7 +11,7 @@ SQL TASK:
   select projects.name, count(tasks) from tasks right join projects on (tasks.project_id = projects.id) GROUP BY projects.id ORDER BY projects.name ASC;
 
 4. get the tasks for all projects having the name beginning with “N” letter
-statuselect projects.name, tasks.name from tasks inner join projects on (tasks.project_id = projects.id) where tasks.name like 'N%';
+  statuselect projects.name, tasks.name from tasks inner join projects on (tasks.project_id = projects.id) where tasks.name like 'N%';
 
 5. get the list of all projects containing the ‘a’ letter in the middle of the name, and show the tasks count near each project. Mention that there can exist projects without tasks and tasks with project_id=NULL
   select projects.name, count(tasks) from tasks right join projects on (tasks.project_id = projects.id) where projects.name like '%a%' GROUP BY projects.id;
