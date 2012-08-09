@@ -15,4 +15,4 @@
 /tmp
 
 # Ignore real db-config with passwords
-/config/database.yml 
+config/database.yml
