@@ -14,10 +14,11 @@ LogIn = ()->
   $.ajax
     type: 'get'
     url: '/login'
-    success: (html, xhr) -> OpenModalWindow(html)
-
-$('form.login-register').live('ajax:error', (xhr, err) -> LogRegErr(err))
-$('form.login-register').live('ajax:success', (xhr, data) -> LogRegOK(data))
+    success: (html, xhr) -> 
+      OpenModalWindow(html)
+      $('#modal form.login-register')
+        .on('ajax:error', (xhr, err) -> LogRegErr(err))
+        .on('ajax:success', (xhr, data) -> LogRegOK(data))
 
 LogRegOK = (data) ->
   $('div.navbar li.login').hide()

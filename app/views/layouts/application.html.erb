@@ -8,33 +8,37 @@
 </head>
 <body>
   <div class="wrapper">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <ul class="nav pull-right">
-          <li class="user_email"></li>
-          <li class="login"><%= link_to "Log In", login_path, method: "delete", remote: true %></li>
-          <li class="logout"><%= link_to "Log Out", logout_path, method: "delete"%></li>
-        </ul>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav pull-right">
+            <li class="user_email"></li>
+            <li class="login"><%= link_to "Log In", login_path, method: "delete", remote: true %></li>
+            <li class="logout"><%= link_to "Log Out", logout_path, method: "delete"%></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row" id="alert-area"></div>
+    <div class="container">
+      <div class="row" id="alert-area"></div>
 
-    <div class="row" id="title"><h1>SIMPLE TODO LISTS</h1></div>
+      <div class="row" id="title"><h1>SIMPLE TODO LISTS</h1></div>
 
-    <div class="row" id="main"></div>
+      <div class="row" id="main"></div>
 
-    <div class="row text-center">
-      <%= link_to 'Add TODO List', new_project_path, :class=>"btn btn-primary no-visited-hightlite project-add", remote: true %>
+      <div class="row text-center" id="project-add-button">
+        <%= link_to 'Add TODO List', new_project_path, :class=>"btn btn-primary no-visited-hightlite project-add", remote: true %>
+      </div>
+
+      <div class="row" id="modal"></div>
+      
+      <div class="clear"></div>
     </div>
 
-    <div class="row" id="modal"></div>
+    <div id="ajax-req-processing"><%= image_tag("AjaxLoading.gif") %></div>  
     
-    <div class="clear"></div>
-  </div>
   </div>
 </body>
 </html>

@@ -14,10 +14,10 @@
   <td class="control">
     <ul class="nav nav-pills hide">
       <li>
-        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "up"), class: "task-priority-up", title: "Up priority",  method: :put, remote: true do %>
+        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "up"), class: "task-priority up", title: "Up priority",  method: :put, remote: true do %>
           <i class="icon-arrow-up"></i>
         <% end %>
-        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "down"), class: "task-priority-down", title: "Down priority",  method: :put, remote: true do %>
+        <%= link_to change_priority_project_task_path(task.project_id, task, direction: "down"), class: "task-priority down", title: "Down priority",  method: :put, remote: true do %>
           <i class="icon-arrow-down"></i>
         <% end %>
       </li>          

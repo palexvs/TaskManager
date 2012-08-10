@@ -1,7 +1,12 @@
+jQuery ->
+# Show AjaxLoading Image when wait server's answer  
+  $("#ajax-req-processing").ajaxSend((event, xhr, options) -> $(this).show() )
+    .ajaxStop( () -> $(this).fadeOut("fast") )
+
 @OpenModalWindow= (html) ->
   $('#myModal').modal('hide')
   $(html).appendTo('#modal').hide()
-  $('#myModal').on('hidden', -> $('#modal').html('') )
+  $('#myModal').on('hidden', -> $('#modal').empty() )
   $('#myModal').modal('show')
 
 @CloseModalWindow= () ->

@@ -11,7 +11,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to project, class: "delete", method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
+          <%= link_to project, class: "project-delete", method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
             <i class="icon-trash"></i>
           <% end %>
         </li>
@@ -22,7 +22,7 @@
   <!-- Add-Task row -->
   <tr class="add-new">
     <td colspan="3">
-      <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical form-inline"}) do |f| %>
+      <%= simple_form_for([project, @task], remote: true, :html => {:class => "form-vertical form-inline task-add"}) do |f| %>
         <%= f.input :name, :label => false, :input_html => {class: "task_name", id: "task_name_p#{project.id}",  size: "125" } %>
         <%= f.submit "Add Task",:class=>"btn btn-primary" %>
       <% end %>

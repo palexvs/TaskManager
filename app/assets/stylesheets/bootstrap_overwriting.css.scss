@@ -35,7 +35,7 @@ $blue-header: #4572A8;
   .nav {
     margin: 0;
   }
-  &:nth-child(3) a.task-priority-up, &:last-child a.task-priority-down{
+  &:nth-child(3) a.task-priority.up, &:last-child a.task-priority.down{
     opacity: 0.1;
     cursor: default;
     pointer-events: none;
@@ -46,12 +46,11 @@ $blue-header: #4572A8;
     padding-bottom: 0px;
     a {
       padding: 6px;
-      &.task-priority-up { 
-        margin: 0;
+      margin: 0px;
+      &.task-priority.up { 
         padding: 1px 6px 0px 6px; 
       }
-      &.task-priority-down { 
-        margin: 0;
+      &.task-priority.down { 
         padding: 0px 6px 1px 6px; 
       }
     }
@@ -194,4 +193,27 @@ html, body {
     color-stop(0.63, rgb(200,196,162)),
     color-stop(0.8, rgb(206,204,180))
   );
+}
+
+/* Processing Massage */
+#ajax-req-processing {
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1020;
+  background-color: white;  
+  display: none;
+  img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1030;
+    overflow: auto;
+    width: 66px;
+    margin: -33px 0 0 -33px;
+  }
 }

@@ -25,7 +25,7 @@ class Task < ActiveRecord::Base
 
   validate :deadline_cannot_be_in_the_past
 
-  before_create :set_priority
+  after_create :set_priority
 
   def change_priority(direction=nil)
     if direction == 'up'
@@ -47,7 +47,8 @@ class Task < ActiveRecord::Base
   private
 
   def set_priority
-    self.priority = Task.last.id + 1
+    self.priority = self.id
+    self.save
   end
 
   def deadline_cannot_be_in_the_past

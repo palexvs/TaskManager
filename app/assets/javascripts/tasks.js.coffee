@@ -2,67 +2,66 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+jQuery ->
 # Show Task
-$('a.task-show').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('a.task-show').live('ajax:success', (xhr, data) -> ShowTaskDetails(data))
+  $('#main')
+    .on('ajax:error', 'a.task-show', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', 'a.task-show', (xhr, data) -> ShowTaskDetails(data))
+    .on('ajax:error', 'a.task-edit', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', 'a.task-edit', (xhr, data) -> ShowTaskEdit(data))
+    .on('ajax:error', 'a.task-delete', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', 'a.task-delete', (xhr, data) -> RemoveRow($(this)))    
+    .on('change', 'input.task-status-chekbox', () -> SetTaskStatus($(this)))
+    .on('ajax:error', 'a.task-priority', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', 'a.task-priority', (xhr, data) -> MoveRow($(this)))   
+    .on('ajax:error', 'form.task-add', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', 'form.task-add', (xhr, data) -> AddRow($(this), data))
 
+# Show Details
 ShowTaskDetails= (html) ->
   OpenModalWindow(html)
 
-# Edit Task
-$('a.task-edit').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('a.task-edit').live('ajax:success', (xhr, data) -> ShowTaskEdit(data))
+# Remove 
+RemoveRow= (object) ->
+  thisRow = object.closest("tr")
+  thisRow.fadeOut(500, -> thisRow.remove())
 
+# Edit
 ShowTaskEdit= (html) ->
   OpenModalWindow(html)
   $('#myModal #task_deadline').datetimepicker({minDate: new Date(), dateFormat: 'yy-mm-dd',})  
+  $('#myModal form.task-add-edit')
+    .on('ajax:error', (xhr, err) -> HandleCommonErr(err))
+    .on('ajax:success', (xhr, data) -> UpdateTask())
 
-$('form.task-add-edit').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('form.task-add-edit').live('ajax:success', (xhr, data) -> UpdateTask())
-
+# Update
 UpdateTask= () ->
   CloseModalWindow()
   LoadProjectList()
 
-# Change Task Status
-$('#main td.set-done input:checkbox').live('change', () -> SetTaskStatus($(this)) )
-
+# Change Status
 SetTaskStatus = (ch)->
-  n = ch.parents("tr").attr("id").split("-")
-  params = { task: {done: ch.is(":checked") } }
+  n = ch.closest("tr").attr("id").split("-")
+  params = { task: {done: ch[0].checked } }
   request = $.ajax
     type: 'put'
     url: '/projects/'+n[0]+'/tasks/'+n[1]
     dataType: 'json'
     data: params
     error: (errors, status) -> HandleCommonErr(errors)
-    success: -> ch.parents("tr").toggleClass('status-done')
+    success: -> ch.closest("tr").toggleClass('status-done')
 
-# Change Task Priority
-$('a.task-priority-up, a.task-priority-down').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('a.task-priority-up, a.task-priority-down').live('ajax:success', (xhr, data) -> MoveRow($(this)))
-
+# Change Priority
 MoveRow= (object) ->
-  thisRow = object.parents("tr")
-  if object.hasClass('task-priority-up')
+  thisRow = object.closest("tr")
+  if object.hasClass('up')
     thisRow.insertBefore( thisRow.prev() )
   else
-    if object.hasClass('task-priority-down')
+    if object.hasClass('down')
       thisRow.insertAfter( thisRow.next() )
 
-# Remove Task
-$('a.task-delete').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('a.task-delete').live('ajax:success', (xhr, data) -> RemoveRow($(this)))
-
-RemoveRow= (object) ->
-  thisRow = object.parents("tr")
-  thisRow.fadeOut(500, -> thisRow.remove())
-
-# Add Task
-$('tr.add-new form').live('ajax:error', (xhr, err) -> HandleCommonErr(err))
-$('tr.add-new form').live('ajax:success', (xhr, data) -> AddRow($(this), data))
-
+# Add
 AddRow= (object, html) ->
-  thisTable = object.parents("table")
+  thisTable = object.closest("table")
   thisTable.append(html)
   object[0].reset()
