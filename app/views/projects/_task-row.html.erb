@@ -12,7 +12,7 @@
 
   <!-- Buttons: Up/Down  Priority, Details, Edit, Delete  -->
   <td class="control">
-    <ul class="nav nav-pills hide">
+    <ul class="nav nav-pills">
       <li>
         <%= link_to change_priority_project_task_path(task.project_id, task, direction: "up"), class: "task-priority up", title: "Up priority",  method: :put, remote: true do %>
           <i class="icon-arrow-up"></i>

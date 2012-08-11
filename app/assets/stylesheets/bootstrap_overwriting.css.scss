@@ -1,84 +1,83 @@
+$tableBackgroundHover: #fcfed5;
+$tableBackground: rgba(217, 217, 217, 0.6);
+$tableBackgroundAccent: rgba(249, 249, 249, 0.6);
+
 @import "bootstrap";
+
+$ColumnControlWidth: 105px;
+$ColumnSetDoneWidth: 30px;
+$TdPaddingRL: 5px;
+
 $blue-header: #4572A8;
+
+$AjaxLoadImgSize: 66px;
 
 /* Top Menu */
 .navbar .container{
   width: 940px;
 }
 
-.modal,
-.table-bordered {
-  -webkit-border-radius: 10px;
-  -webkit-border-top-left-radius: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -moz-border-radius: 10px;
-  -moz-border-radius-topleft: 4px;
-  -moz-border-radius-topright: 4px;
-  border-radius: 10px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;  
-}
-.table-bordered tbody:last-child tr:last-child td:last-child {
-  -webkit-border-bottom-right-radius: 7px;
-  border-bottom-right-radius: 7px;
-  -moz-border-radius-bottomright: 7px;
-}
-.table-bordered tbody:last-child tr:last-child td:first-child {
-  -webkit-border-bottom-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-  -moz-border-radius-bottomleft: 7px;
-}
-
 /* Project's list Table*/
 .projects-list tr {
-  /* Control Buttons */
-  .nav {
-    margin: 0;
-  }
+  /* Disable First Up and Last Down Priority Buttons */
   &:nth-child(3) a.task-priority.up, &:last-child a.task-priority.down{
     opacity: 0.1;
     cursor: default;
     pointer-events: none;
   }
-  td.control {
-    width: 120px;
-    padding-top: 2px;
-    padding-bottom: 0px;
-    a {
-      padding: 6px;
-      margin: 0px;
-      &.task-priority.up { 
-        padding: 1px 6px 0px 6px; 
-      }
-      &.task-priority.down { 
-        padding: 0px 6px 1px 6px; 
-      }
+  // Control Block with buttons Edit, Remove, Show, ...
+  .control {
+    width: $ColumnControlWidth;
+    padding: 2px 5px 0px 5px;
+    .nav {
+      margin: 0;
+      display: none;
+      a {
+        padding: 6px;
+        margin: 3px 0px;
+        &.task-priority {
+          margin: 0px;
+          &.up { 
+            padding: 1px 6px 0px 6px; 
+          }
+          &.down { 
+            padding: 0px 6px 1px 6px; 
+          }          
+        }
+      }     
     }
   }
+  &:hover .control ul {
+    display: block;
+  }  
   th.control {
-    width: 120px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    a {
-      padding: 6px;
-    }    
+    .nav a {
+      margin: 1px 0px;
+    }
   }
+
+  // Set Done Block
   td.set-done {
-    width: 30px;
+    width: $ColumnSetDoneWidth;
     input[type="checkbox"] {
       margin: 8px 0 0 7px;
     }
   }
+  &.status-done td {
+    text-decoration: line-through;
+  }  
+
+  // Add Task Row
   &.add-new {
     .btn {
-      width: 115px;
+      width: ($ColumnControlWidth - $TdPaddingRL);
       float: right;
     }
     &:hover td, td {
       background-color: #d9d9d9;
     }
     input.task_name {
-      width: 805px;
+      width: 820px;
       float: left;
     }
   }
@@ -87,33 +86,15 @@ $blue-header: #4572A8;
   th {
     background-color: $blue-header !important;
     color: white;
-    p {
+    &.name p {
       margin: 3px;
     }
   }
 
-  /* Other Common styles */
-  &:nth-child(odd) td {
-    background-color: rgba(249, 249, 249, 0.6);
-  }
-  td {
-    background-color: rgba(249, 249, 249, 0.7);
-  }
-  &:hover {
-    td {
-      background-color: #fcfed5;
-    }
-    .hide {
-      display: block !important;
-    }
-  }
   td.name {
     p {
       margin: 6px
     }
-  }
-  &.status-done td {
-    text-decoration: line-through;
   }
 }
 
@@ -153,7 +134,7 @@ $blue-header: #4572A8;
 
 /* Commom styles */
 a.no-visited-hightlite:visited {
-  color: #ffffff;
+  color: $white;
 }
 
 .text-center {
@@ -168,31 +149,26 @@ a.no-visited-hightlite:visited {
   display: none;
 }
 
+.modal, .table-bordered {
+  @include border-radius(4px 4px 10px 10px);
+}
+.table-bordered tbody:last-child tr:last-child td {
+  &:last-child {
+    @include border-radius(0px 0px 7px 0px);
+  }
+  &:first-child {
+    @include border-radius(0px 0px 0px 7px);
+  }
+}
+
 /* Background Gradient */
+html, body {
+  height: 100%;
+}
 .wrapper {
   min-height: 100%;
   height: auto;
-  display: block;
-}
-html, body {
-  height: 100%;
-  display: block;
-}
-.wrapper { 
-  background-image: linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
-  background-image: -o-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
-  background-image: -moz-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
-  background-image: -webkit-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
-  background-image: -ms-linear-gradient(bottom, rgb(198,117,12) 22%, rgb(200,196,162) 63%, rgb(206,204,180) 80%);
-
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.22, rgb(198,117,12)),
-    color-stop(0.63, rgb(200,196,162)),
-    color-stop(0.8, rgb(206,204,180))
-  );
+  @include gradient-vertical-three-colors(#CECCB4, #C8C4A2, 50%, #C6750C);  
 }
 
 /* Processing Massage */
@@ -213,7 +189,6 @@ html, body {
     left: 50%;
     z-index: 1030;
     overflow: auto;
-    width: 66px;
-    margin: -33px 0 0 -33px;
+    margin: (-$AjaxLoadImgSize / 2) 0 0 (-$AjaxLoadImgSize / 2);
   }
 }
