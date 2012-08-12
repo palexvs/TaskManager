@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(email: "test@test.com", password: "123456") }
+  before { @user = build(:user) }
 
   subject { @user }
 
@@ -83,5 +83,9 @@ describe User do
 
   end
 
+  describe "create sid" do
+    before { @user.save }
+    its(:sid) { should_not be_blank }
+  end  
 
 end

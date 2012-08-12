@@ -8,4 +8,9 @@ FactoryGirl.define do
     email    "test@test.com"
     password "testtest"
   end  
+
+  factory :project do
+    name  "First Project"
+    user
+  end
 end

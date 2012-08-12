@@ -12,24 +12,62 @@ describe "Authentication", :js => true do
     it { should have_button('Register') }
   end
 
-  describe "with invalid information" do
-    let(:user) { build(:user_invalid_password) }
-    before do
-      fill_in "user_email",    with: user.email
-      fill_in "user_password", with: user.password
-      click_button "Login"
+  describe "login" do
+
+    describe "with not exists user" do
+      let(:user) { build(:user) }
+      before do
+        fill_in "user_email",    with: user.email
+        fill_in "user_password", with: user.password
+        click_button "Login"
+      end
+      it { should have_selector('#modal div.alert-error p', text: 'Wrong email or password') }
     end
-    it { should have_selector('div#alert-area-modal div.alert-error p', text: 'Wrong email or password') }
+
+    describe "with valid information" do
+      let(:user) { create(:user) }
+      before do
+        fill_in "user_email",    with: user.email
+        fill_in "user_password", with: user.password
+        click_button "Login"
+      end
+      it { should have_selector('div.navbar li.user_email a', text: user.email) }
+      it { find('div.navbar li.logout a').should be_visible }
+      it { find('div.navbar li.login a').should_not be_visible }
+    end  
+
   end
 
-  describe "with valid information" do
-    let(:user) { build(:user) }
-    before do
-      fill_in "user_email",    with: user.email
-      fill_in "user_password", with: user.password
-      click_button "Login"
+  describe "register" do
+    describe "with invalid information" do
+      let(:user) { build(:user_invalid_password) }
+      before do
+        fill_in "user_email",    with: user.email
+        fill_in "user_password", with: user.password
+        click_button "Register"
+      end
+      it { should have_selector('#modal div.alert-error p', text: 'Password is too short (minimum is 6 characters)') }
     end
-    it { should have_selector('div.navbar li.user_email a', text: user.email) }
+
+    describe "with dup email" do
+      let(:user) { create(:user) }
+      before do
+        fill_in "user_email",    with: user.email
+        fill_in "user_password", with: user.password
+        click_button "Register"
+      end
+      it { should have_selector('#modal div.alert-error p', text: 'Email has already been taken') }
+    end  
+
+    describe "with valid information" do
+      let(:user) { build(:user) }
+      before do
+        fill_in "user_email",    with: user.email
+        fill_in "user_password", with: user.password
+        click_button "Register"
+      end
+      it { should have_selector('div.navbar li.user_email a', text: user.email) }
+    end  
   end  
 
 end
