@@ -11,7 +11,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password
   has_many :project
 
   VALID_EMAIL_REGEX = /\A[\w+\-_+.]+@[a-z\d\-.]+\.[a-z]+\z/i

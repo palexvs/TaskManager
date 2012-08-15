@@ -49,12 +49,12 @@ describe "Project", :js => true do
     before do
       visit root_path
       sleep(1)
-      page.execute_script("$('table#project_#{@project.id} th.control ul.nav').show()")
-      find("table#project_#{@project.id} tr th.control ul.nav li:eq(2)").find("a i[@class='icon-trash']").click
+      page.execute_script("$('table#project_#{project.id} th.control ul.nav').show()")
+      find("table#project_#{project.id} tr th.control ul.nav li:eq(2)").find("a i[@class='icon-trash']").click
     end
     it "should be able to delete project" do
       page.driver.browser.switch_to.alert.accept
-      should_not have_selector("div#main > table#project_#{@project.id}")
+      should_not have_selector("div#main > table#project_#{project.id}")
     end
     it "should delete project from DB" do
       expect do 
