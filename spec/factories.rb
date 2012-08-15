@@ -13,4 +13,10 @@ FactoryGirl.define do
     name  "First Project"
     user
   end
+  
+  factory :task do
+    name  "Task Name"
+    project
+  end
+
 end

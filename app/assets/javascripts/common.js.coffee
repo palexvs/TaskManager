@@ -7,7 +7,9 @@ jQuery ->
   $('#myModal').modal('hide')
   $(html).appendTo('#modal').hide()
   $('#myModal').on('hidden', -> $('#modal').empty() )
-  $('#myModal').modal('show')
+  $('#myModal').modal
+    backdrop: 'static',
+    show: 'true'
 
 @CloseModalWindow= () ->
   $('#myModal').modal('hide')

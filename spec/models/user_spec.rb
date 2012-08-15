@@ -10,6 +10,8 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:project) }
+  it { should be_valid }
 
   describe "when email is not present" do
     before { @user.email = " " }
@@ -87,5 +89,13 @@ describe User do
     before { @user.save }
     its(:sid) { should_not be_blank }
   end  
+
+  describe "accessible attributes" do
+    it "should not allow access to sid" do
+      expect do
+        User.new(sid: "1234567890")
+      end.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end    
+  end
 
 end
