@@ -18,6 +18,8 @@ TaskManager::Application.routes.draw do
 
   resources :users, only: [:create]
 
+  match '*a' => 'application#rescue404'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
