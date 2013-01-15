@@ -17,6 +17,7 @@ jQuery ->
   $.ajax
     type: 'get'
     url: '/projects/'
+    data: {partial: true}
     success: (data, xhr) -> $('#main').html(data).hide().fadeIn()
     error: (errors, status) -> ShowErrMsg(errors)
 
